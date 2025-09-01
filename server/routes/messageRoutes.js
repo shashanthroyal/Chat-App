@@ -18,4 +18,15 @@ router.get("/:userId/:receiverId", async(req,res) =>{
       }
 })
 
+router.post("/", async (req, res) => {
+    try {
+        const { senderId, receiverId, text } = req.body;
+        const newMessage = new Message({ senderId, receiverId, text });
+        await newMessage.save();
+        res.status(201).json(newMessage);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 export default router;

@@ -1,61 +1,60 @@
-import React, { useState , useEffect } from 'react'
-import { Link, useNavigate , useLocation } from 'react-router-dom'
-import './Navbar.css'
+import React from 'react'
+import { useState , useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import './Navbar.css';
+
 
 function Navbar() {
 
-  const navigate = useNavigate() 
-  const location = useLocation()
-   const [isLogged , setIsLogged] = useState(false)
+    const [username , setUsername] = useState(null)
+    const navigate = useNavigate()
 
-   useEffect(()=>{
-    const checkLoginStatus = () => {
-      setIsLogged(!!localStorage.getItem("token"));
-    };
+    useEffect(() => {
+        const storedUsername = localStorage.getItem("username");
+        if (storedUsername) {
+            setUsername(storedUsername);
+        }
 
-    checkLoginStatus(); // Initial check
+        const handleStorageChange = () => {
+            const updatedUsername = localStorage.getItem("username");
+            setUsername(updatedUsername);
+        };
 
-    window.addEventListener('storage', checkLoginStatus);
+        window.addEventListener('storage', handleStorageChange);
 
-    return () => {
-      window.removeEventListener('storage', checkLoginStatus);
-    };
-   } , [location.pathname]) // location.pathname is still useful for direct navigation or URL changes
-
-   const logout = ()=>{
-     localStorage.removeItem("token")
-     setIsLogged (false) // Optimistically update state, storage event will confirm
-     navigate("/login")
+        return () => {
+            window.removeEventListener('storage', handleStorageChange);
+        };
+    }, []);
+   
+   const handleLogout = () =>{
+            localStorage.removeItem("token");
+            localStorage.removeItem("username");
+            localStorage.removeItem("id");
+            setUsername(null);
+            navigate('/login')
    }
-
+    
   return (
-    <div class = "Navbar">
-        <div class= "Navbar-left">
-            <h2><Link to='/chat'>Chat Now</Link></h2>
-        </div>
-        <div className="Navbar-right">
-          { isLogged ? (
-            
-            <button onClick={logout}>
-              Logout
-            </button>
-          )
-            
-           : (
-            <>
-              <Link to="/login" >
-                Login
-              </Link>
-              <Link to="/register" >
-                Register
-              </Link>
-            </>
-          )}
-        </div>
+    <div className="navbar">
+      <div className="navbar-brand">
+        <h2>Chat App</h2>
+      </div>
+      <div className="navbar-links">
+        {username ? (
+          <div className="navbar-user-info">
+            <p>Hello, {username}</p>
+            <button onClick={handleLogout}>Logout</button>
+          </div>
+        ) : (
+          <div className="navbar-auth-links">
+            <Link to="/login">Login</Link>
+            <Link to="/register">Register</Link>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
-
-
 
 export default Navbar

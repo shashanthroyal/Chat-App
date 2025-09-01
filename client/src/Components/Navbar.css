@@ -1,53 +1,57 @@
-.Navbar {
+.navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
-    background-color: #333;
+    padding: 1rem 2rem;
+    background-color: #282c34;
     color: white;
-  }
-  
-  .Navbar-left h2 {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-brand h2 {
     margin: 0;
-  }
-  
-  .Navbar-left a {
+    font-size: 1.8rem;
+    color: #61dafb;
+}
+
+.navbar-user-info {
+    display: flex;
+    align-items: center; /* Align items vertically */
+    gap: 1.5rem; /* Space between p and button */
+}
+
+.navbar-user-info p {
+    margin: 0; /* Remove default paragraph margin */
+    font-size: 1.1rem;
     color: white;
-    text-decoration: none;
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
-  .Navbar-left a:hover {
-    color: #007bff;
-  }
-  
-  .Navbar-right a {
-    color: white;
-    text-decoration: none;
-    margin-left: 15px;
-    font-size: 16px;
-    padding: 8px 12px;
-    border-radius: 5px;
-    transition: background-color 0.2s;
-  }
-  
-  .Navbar-right a:hover {
-    background-color: #555;
-  }
-  
-  .Navbar-right button {
-    background-color: #dc3545; /* Red for logout */
+}
+
+.navbar-user-info button {
+    width: 100px;
+    height: 35px;
+    background-color: transparent;
     color: white;
     border: none;
     border-radius: 5px;
-    padding: 8px 15px;
     cursor: pointer;
-    font-size: 16px;
-    margin-left: 15px;
-    transition: background-color 0.2s;
-  }
-  
-  .Navbar-right button:hover {
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
+}
+
+.navbar-user-info button:hover {
     background-color: #c82333;
-  }
+}
+
+.navbar-auth-links a {
+    color: white;
+    text-decoration: none;
+    margin-left: 1.5rem;
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.navbar-auth-links a:hover {
+    background-color: #444;
+}

@@ -1,37 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Login from './pages/Login.jsx';
-import Register from './pages/Register.jsx';
-import Chat from './pages/chat.jsx';
-import Navbar from './Components/Navbar.jsx';
+import Navbar from './Components/Navbar';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Chat from './pages/chat';
+import './App.css'; // Assuming you have some global app CSS
 
-const ProtectedRoute = ({ children }) => {
-  const token = localStorage.getItem('token');
-  if (!token) {
-    return <Navigate to="/login" replace />;
-  }
-  return children;
-};
+export default function App() {
+  const token = localStorage.getItem("token");
 
-function App() {
   return (
     <Router>
       <Navbar />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route
-          path="/chat"
-          element={
-            <ProtectedRoute>
-              <Chat />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="*" element={<Navigate to="/login" replace />} />
+        <Route path="/chat" element={<Chat />} />
+        <Route path="/" element={<Navigate to={token ? "/chat" : "/login"} replace />} />
       </Routes>
     </Router>
   );
 }
-
-export default App;

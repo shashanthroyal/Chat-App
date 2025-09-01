@@ -1,26 +1,21 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import './Auth.css';
+import { useNavigate, Link } from "react-router-dom";
+import "./Auth.css";
 
-function Register() {
+export default function Register() {
   const [form, setForm] = useState({ username: "", email: "", password: "" });
-  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const handleChange = e => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async e => {
     e.preventDefault();
-    setError(null); // Clear previous errors
     try {
       await axios.post("http://localhost:5000/api/auth/register", form);
-      navigate('/login');
+      navigate("/login");
     } catch (err) {
-      setError(err.response?.data?.message || "Registration Failed"); // Use message from backend
-      console.error("Registration error:", err);
+      alert(err.response?.data?.error || "Registration failed");
     }
   };
 
@@ -29,25 +24,44 @@ function Register() {
       <div className="auth-card">
         <h2>Register</h2>
         <form onSubmit={handleSubmit} className="auth-form">
-          {error && <p className="error-message">{error}</p>}
           <div className="form-group">
             <label htmlFor="username">Username</label>
-            <input type="text" id="username" name="username" placeholder="Enter your username" onChange={handleChange} className="auth-input" required />
+            <input
+              id="username"
+              name="username"
+              placeholder="Username"
+              onChange={handleChange}
+              className="auth-input"
+            />
           </div>
           <div className="form-group">
             <label htmlFor="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Enter your email" onChange={handleChange} className="auth-input" required />
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="Email"
+              onChange={handleChange}
+              className="auth-input"
+            />
           </div>
           <div className="form-group">
             <label htmlFor="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="Enter your password" onChange={handleChange} className="auth-input" required />
+            <input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="Password"
+              onChange={handleChange}
+              className="auth-input"
+            />
           </div>
           <button type="submit" className="auth-button">Register</button>
         </form>
-        <p>Already have an account ? <a href="/login">Login</a> </p>
+        <p className="auth-switch-link">
+          Already have an account ? <Link to="/login">Login</Link>
+        </p>
       </div>
     </div>
   );
 }
-
-export default Register;

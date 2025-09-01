@@ -12,9 +12,13 @@ dotenv.config();
 const app = express();
 const server = http.createServer(app);
 
+const onlineUsers = new Map();
 
 const PORT = process.env.PORT || 5000;
-app.use(cors());
+app.use(cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+}));
 app.use(express.json());
 
 app.use('/api/auth',authRoutes);
@@ -32,6 +36,11 @@ const io = new Server(server,{
 io.on("connection", (socket) => {
     console.log("🟢 User connected:", socket.id);
   
+    socket.on("addUser", (userId) => {
+      onlineUsers.set(userId, socket.id);
+      io.emit("getOnlineUsers", Array.from(onlineUsers.keys()));
+      console.log("Online users:", Array.from(onlineUsers.keys()));
+    });
     
     socket.on("join", (userId) => {
       socket.join(userId);
@@ -56,6 +65,13 @@ io.on("connection", (socket) => {
   
     socket.on("disconnect", () => {
       console.log("🔴 User disconnected:", socket.id);
+      onlineUsers.forEach((value, key) => {
+        if (value === socket.id) {
+          onlineUsers.delete(key);
+        }
+      });
+      io.emit("getOnlineUsers", Array.from(onlineUsers.keys()));
+      console.log("Online users after disconnect:", Array.from(onlineUsers.keys()));
     });
   });
 
