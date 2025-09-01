@@ -1,7 +1,7 @@
 import express from 'express';
 import User from '../models/user.js'
 import bcrypt from 'bcrypt'
-import JsonWebTokenError from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
 
 const router = express.Router();
 
@@ -15,7 +15,7 @@ router.post("/register",async(req , res) =>{
 
         res.status(201).json({message: "User registered successfully"});
     }catch (err){
-        res.status(500).json({error: err.message});
+        res.status(409).json({message: "User Already Existed"}); // Changed status to 409 Conflict
     }
 })
 
@@ -29,7 +29,11 @@ router.post("/login", async(req,res) =>{
         const isMatch = await bcrypt.compare(password , user.password);
         if (!isMatch)return res.status(400).json({error: "Invalid Credentials"});
 
-        const token = JsonWebTokenError.sign({id: user._id} , process.env.JWT_SECRET , {
+        if (!process.env.JWT_SECRET) {
+            throw new Error('JWT_SECRET is not defined');
+        }
+
+        const token = jwt.sign({id: user._id} , process.env.JWT_SECRET , {
             expiresIn: "1d",
         })
 
@@ -40,5 +44,18 @@ router.post("/login", async(req,res) =>{
         
     }
 })
+
+
+
+
+router.get("/users", async (req, res) => {
+  try {
+    const users = await User.find({}, { password: 0 });
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 
 export default router;

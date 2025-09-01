@@ -5,6 +5,7 @@ import './Auth.css';
 
 function Login() {
   const [form, setForm] = useState({ email: '', password: '' });
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const handleChange = e => {
@@ -13,12 +14,16 @@ function Login() {
 
   const handleSubmit = async e => {
     e.preventDefault();
+    setError(null); // Clear previous errors
     try {
       const res = await axios.post('http://localhost:5000/api/auth/login', form);
       localStorage.setItem('token', res.data.token);
-      navigate('/');
-    } catch (error) {
-      alert(error.response?.data?.error || 'Login failed');
+      localStorage.setItem('user', JSON.stringify(res.data.user)); // Store user object
+      alert(`Welcome ${res.data.user.username} logged in successfully`);
+      navigate('/chat');
+    } catch (err) {
+      setError(err.response?.data?.error || 'Login failed');
+      console.error("Login error:", err);
     }
   };
 
@@ -27,6 +32,7 @@ function Login() {
       <div className='auth-card'>
         <h2>Login</h2>
         <form onSubmit={handleSubmit} className='auth-form'>
+          {error && <p className="error-message">{error}</p>}
           <div className='form-group'>
             <label htmlFor='email'>Email</label>
             <input type='email' id='email' name='email' placeholder='Enter your email' onChange={handleChange} className='auth-input' required />
@@ -37,6 +43,7 @@ function Login() {
           </div>
           <button type='submit' className='auth-button'>Login</button>
         </form>
+        <p> Don't have an account ? <a href="/register">Register</a></p>
       </div>
     </div>
   );

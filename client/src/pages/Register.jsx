@@ -5,6 +5,7 @@ import './Auth.css';
 
 function Register() {
   const [form, setForm] = useState({ username: "", email: "", password: "" });
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const handleChange = e => {
@@ -13,11 +14,13 @@ function Register() {
 
   const handleSubmit = async e => {
     e.preventDefault();
+    setError(null); // Clear previous errors
     try {
       await axios.post("http://localhost:5000/api/auth/register", form);
       navigate('/login');
-    } catch (error) {
-      alert(error.response?.data?.error || "Register Failed");
+    } catch (err) {
+      setError(err.response?.data?.message || "Registration Failed"); // Use message from backend
+      console.error("Registration error:", err);
     }
   };
 
@@ -26,6 +29,7 @@ function Register() {
       <div className="auth-card">
         <h2>Register</h2>
         <form onSubmit={handleSubmit} className="auth-form">
+          {error && <p className="error-message">{error}</p>}
           <div className="form-group">
             <label htmlFor="username">Username</label>
             <input type="text" id="username" name="username" placeholder="Enter your username" onChange={handleChange} className="auth-input" required />
@@ -40,6 +44,7 @@ function Register() {
           </div>
           <button type="submit" className="auth-button">Register</button>
         </form>
+        <p>Already have an account ? <a href="/login">Login</a> </p>
       </div>
     </div>
   );

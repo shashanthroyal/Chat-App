@@ -1,44 +1,53 @@
-.Navbar{
-   
-    height: 80px;
-    background-color: #333;
+.Navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
-}
-
-.Navbar-left h2 a{
-    color: white;
-    text-decoration: none;
-    margin-left: 30px;
-    font-size: larger;
-}
-
-.Navbar-right a{
-    color: white;
-    text-decoration: none;
-    margin-left: 30px;
-    font-size: large;
-}
-
-.Navbar-right a:hover{
-    color: #007bff;
-}
-
-.Navbar-right button{
-    
-    color: white;
-    font-weight: bold;
-    border: none;
-    font-size: larger;
-    border-radius: 8px;
     padding: 10px 20px;
+    background-color: #333;
+    color: white;
+  }
+  
+  .Navbar-left h2 {
+    margin: 0;
+  }
+  
+  .Navbar-left a {
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .Navbar-left a:hover {
+    color: #007bff;
+  }
+  
+  .Navbar-right a {
+    color: white;
+    text-decoration: none;
+    margin-left: 15px;
+    font-size: 16px;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+  }
+  
+  .Navbar-right a:hover {
+    background-color: #555;
+  }
+  
+  .Navbar-right button {
+    background-color: #dc3545; /* Red for logout */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
     cursor: pointer;
-    background-color: transparent;
-
-}
-
-.Navbar-right button:hover{
-    background-color: #007bff;
-}
+    font-size: 16px;
+    margin-left: 15px;
+    transition: background-color 0.2s;
+  }
+  
+  .Navbar-right button:hover {
+    background-color: #c82333;
+  }
