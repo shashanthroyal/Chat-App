@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Navbar from './Components/Navbar';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Chat from './pages/chat';
+import Chat from './pages/Chat';
 import './App.css'; // Assuming you have some global app CSS
 
 export default function App() {
