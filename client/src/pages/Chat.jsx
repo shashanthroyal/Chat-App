@@ -3,6 +3,9 @@ import axios from 'axios';
 import { io } from 'socket.io-client';
 import './Chat.css';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || "http://localhost:5000";
+
 function Chat() {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
@@ -12,7 +15,7 @@ function Chat() {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    setSocket(io("http://localhost:5000"));
+    setSocket(io(SOCKET_URL));
     console.log("Socket initialized");
   }, []);
 
@@ -59,7 +62,7 @@ function Chat() {
     const fetchUsers = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get("http://localhost:5000/api/auth/users", {
+        const res = await axios.get(`${API_BASE_URL}/api/auth/users`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -85,7 +88,7 @@ function Chat() {
         try {
           const token = localStorage.getItem("token");
           const res = await axios.get(
-            `http://localhost:5000/api/messages/${currentUserId}/${selectedUser._id}`,
+            `${API_BASE_URL}/api/messages/${currentUserId}/${selectedUser._id}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -114,7 +117,7 @@ function Chat() {
 
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.post("http://localhost:5000/api/messages/", 
+      const res = await axios.post(`${API_BASE_URL}/api/messages/`, 
         {
           senderId: currentUserId,
           receiverId: selectedUser._id,
