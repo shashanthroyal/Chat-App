@@ -22,7 +22,7 @@
 .auth-card h2 {
     margin-bottom: 30px;
     color: #333;
-    font-size: 28px;
+    font-size: 1.75rem;
 }
 
 .auth-form {
@@ -47,7 +47,7 @@
     padding: 12px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 1rem;
     box-sizing: border-box;
 }
 
@@ -63,7 +63,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 1.125rem;
     font-weight: bold;
     transition: background-color 0.3s ease;
 }
@@ -74,7 +74,7 @@
 
 .auth-switch-link {
     margin-top: 20px;
-    font-size: 14px;
+    font-size: 0.875rem;
     color: #555;
 }
 
@@ -90,6 +90,6 @@
 
 .error-message {
     color: #dc3545;
-    font-size: 14px;
+    font-size: 0.875rem;
     margin-top: 10px;
 }

@@ -58,9 +58,8 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 
     .user-name{
-        margin-left: -120px;
         font-weight: 500;
-        font-size: larger;
+        font-size: 1.1rem;
     }
 }
 

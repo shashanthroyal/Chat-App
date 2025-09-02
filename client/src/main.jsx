@@ -5,7 +5,5 @@ import App from './App.jsx'
 
 ReactDOM.createRoot(document.getElementById("root")).render(
  
- <div>
-    <App/>
- </div>
+ <App/>
 );
