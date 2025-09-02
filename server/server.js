@@ -55,7 +55,10 @@ io.on("connection", (socket) => {
         const newMessage = new Message({ senderId, receiverId, text });
         await newMessage.save();
     
+        // Emit the message to the receiver's room
         io.to(receiverId).emit("receive_message", newMessage);
+        // Also emit the message back to the sender's room
+        io.to(senderId).emit("receive_message", newMessage);
       } catch (error) {
         console.error("Error saving or emitting message:", error);
         // Optionally, emit an error back to the sender

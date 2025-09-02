@@ -16,6 +16,7 @@ export default function Login() {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("username", res.data.user.username);
       localStorage.setItem("id", res.data.user.id);
+      
       navigate("/chat");
     } catch (err) {
       alert(err.response?.data?.error || "Login failed");
