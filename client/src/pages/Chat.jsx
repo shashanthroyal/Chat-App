@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { io } from 'socket.io-client';
-import '../src/pages/Chat.css';
+import './Chat.css'
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
 const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || "http://localhost:5000";
