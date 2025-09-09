@@ -24,6 +24,10 @@ app.use(express.json());
 app.use('/api/auth',authRoutes);
 app.use('/api/messages',messageRoutes);
 
+app.get("/", (req, res) => {
+  res.send("Welcome to the Chat App API!");
+});
+
 
 
 const io = new Server(server,{
