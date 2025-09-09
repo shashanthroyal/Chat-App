@@ -34,7 +34,7 @@
 .user-list {
     flex-grow: 1;
     overflow-y: auto;
-    padding-right: 5px; /* For scrollbar */
+    padding-right: 5px; 
 }
 
 .user-list::-webkit-scrollbar {
