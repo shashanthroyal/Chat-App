@@ -7,7 +7,7 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000
 
 function Login() {
   const [formData, setFormData] = useState({
-    username: '',
+    email: '',
     password: '',
   });
   const [error, setError] = useState(null);
@@ -22,8 +22,8 @@ function Login() {
     try {
       const res = await axios.post(`${API_BASE_URL}/api/auth/login`, formData);
       localStorage.setItem('token', res.data.token);
-      localStorage.setItem('username', res.data.username); // Store username
-      localStorage.setItem('id', res.data.id); // Store user ID
+      localStorage.setItem('username', res.data.user.username); // Store username
+      localStorage.setItem('id', res.data.user.id); // Store user ID
       navigate('/chat');
     } catch (err) {
       setError(err.response.data.message || 'Login failed');
@@ -36,12 +36,12 @@ function Login() {
         <h2>Login</h2>
         <form className="auth-form" onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="username">Username</label>
+            <label htmlFor="email">Email</label>
             <input
-              type="text"
-              id="username"
-              name="username"
-              value={formData.username}
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
               onChange={handleChange}
               className="auth-input"
               required
