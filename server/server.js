@@ -15,8 +15,10 @@ const server = http.createServer(app);
 const onlineUsers = new Map();
 
 const PORT = process.env.PORT || 5000;
+const clientUrl = process.env.CLIENT_URL || "http://localhost:5173";
+
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: clientUrl,
     methods: ["GET", "POST", "PUT", "DELETE"],
 }));
 app.use(express.json());
@@ -32,7 +34,7 @@ app.get("/", (req, res) => {
 
 const io = new Server(server,{
     cors: {
-        origin: "http://localhost:5173",
+        origin: clientUrl,
         methods: ["GET", "POST"]
     }
 })

@@ -3,8 +3,8 @@ import axios from 'axios';
 import { io } from 'socket.io-client';
 import './styles/Chat.css';
 
-const API_BASE_URL = process.env.VITE_API_BASE_URL || "http://localhost:5000";
-const SOCKET_URL = process.env.VITE_SOCKET_URL || "http://localhost:5000";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || "http://localhost:5000";
 
 function Chat() {
   const [messages, setMessages] = useState([]);
