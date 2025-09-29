@@ -15,7 +15,7 @@ const server = http.createServer(app);
 const onlineUsers = new Map();
 
 const PORT = process.env.PORT || 5000;
-const clientUrl = "https://chatnow-sayz.vercel.app/"|| "http://localhost:5173";
+const clientUrl = "https://chatnow-sayz.vercel.app"|| "http://localhost:5173";
 
 app.use(cors({
     origin: clientUrl,
